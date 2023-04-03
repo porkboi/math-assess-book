@@ -8,7 +8,6 @@ Created on Mon Nov 28 10:44:36 2022
 import sys
 
 # 1. Import QApplication and all the required widgets
-from PyQt5.QtGui import QPixmap
 from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import (QApplication, 
     QGridLayout,
@@ -24,10 +23,12 @@ from PyQt5.QtWidgets import (QApplication,
     QLineEdit,
     QListWidget,
     )
+from PyQt5.QtGui import QPixmap
 #from functools import partial
 from random import randrange
-import requests
 from PIL import Image
+from questiongen import *
+from imagegen import *
 
 WINDOW_SIZE=400
 BANNER_HEIGHT=35
@@ -64,11 +65,8 @@ class Arith100Window(QWidget):
     def _simpleqn(self):
         self.simpleqn = QTextEdit()
         self.simpleqn.setFixedSize(300,30)
-        rnd_int1=randrange(1,50)
-        rnd_int2=randrange(1,25)
-        rnd_int3=randrange(1,25)
-        ans = rnd_int1+rnd_int2+rnd_int3
-        text = str(rnd_int1) + " + " + str(rnd_int2) + " + " + str(rnd_int3) + "= ?    Ans: " + str(ans)
+        text = qn1a()
+        text = str(text)
         self.simpleqn.setPlainText(text)
         self.simpleqn.setReadOnly(True)
         self.createsimpleqn.addWidget(self.simpleqn)
@@ -88,16 +86,8 @@ class Arith100Window(QWidget):
     def _simpleqn2(self):
         self.simpleqn2 = QTextEdit()
         self.simpleqn2.setFixedSize(300,30)
-        rnd_int1=randrange(1,100)
-        rnd_int2=randrange(1,100)
-        
-        if (rnd_int1 > rnd_int2):
-            ans = rnd_int1-rnd_int2
-            text = str(rnd_int1) + " - " + str(rnd_int2) + "= ?    Ans: " + str(ans)
-        else:
-            ans = rnd_int2-rnd_int1
-            text = str(rnd_int2) + " - " + str(rnd_int1) + "= ?    Ans: " + str(ans)
-        
+        text = qn1b()
+        text = str(text)
         self.simpleqn2.setPlainText(text)
         self.simpleqn2.setReadOnly(True)
         self.createsimpleqn2.addWidget(self.simpleqn2)
@@ -110,25 +100,14 @@ class Arith100Window(QWidget):
 
     def regenerate0(self):
         self.simpleqn.setPlainText(" ")
-        rnd_int1=randrange(1,50)
-        rnd_int2=randrange(1,25)
-        rnd_int3=randrange(1,25)
-        ans = rnd_int1+rnd_int2+rnd_int3
-        text = str(rnd_int1) + " + " + str(rnd_int2) + " + " + str(rnd_int3) + "= ?    Ans: " + str(ans)
+        text = qn1a()
+        text = str(text)
         self.simpleqn.setPlainText(text)
     
     def regenerate1(self):
         self.simpleqn2.setPlainText(" ")
-        rnd_int1=randrange(1,100)
-        rnd_int2=randrange(1,100)
-        
-        if (rnd_int1 > rnd_int2):
-            ans = rnd_int1-rnd_int2
-            text = str(rnd_int1) + " - " + str(rnd_int2) + "= ?    Ans: " + str(ans)
-        else:
-            ans = rnd_int2-rnd_int1
-            text = str(rnd_int2) + " - " + str(rnd_int1) + "= ?    Ans: " + str(ans)
-        
+        text = qn1b()
+        text = str(text)
         self.simpleqn2.setPlainText(text)
 
 class AddSubWindow(QWidget):
@@ -147,7 +126,7 @@ class AddSubWindow(QWidget):
 
     def _createBanner(self):
         self.banner = QLabel()
-        self.banner.setText("<h3>Primary 1/ Addition and Subtraction<h3>")
+        self.banner.setText("<h3>Primary 1 / Addition and Subtraction<h3>")
         self.banner.setAlignment(Qt.AlignCenter)
         self.banner.setFixedHeight(BANNER_HEIGHT)
         self.generalLayout.addWidget(self.banner)
@@ -161,12 +140,8 @@ class AddSubWindow(QWidget):
     def _createQuestion(self):
         self.question = QTextEdit()
         self.question.setFixedSize(300,50)
-        rnd_int1=randrange(10,100)
-        rnd_int2=randrange(10,100)
-        rnd_int3=randrange(10)
-        sub1 = rnd_int1-rnd_int3
-        sub2 = rnd_int2+rnd_int3
-        text = "John had " + str(sub1) + " apples, and Mary had "+str(sub2) +" apples. If Mary gave "+ str(rnd_int3) + " to John,how many will John and Mary have in the end? Ans: John had " + str(rnd_int1) + ". Mary had " + str(rnd_int2) + "."
+        text = qn2a()
+        text = str(text)
         self.question.setPlainText(text)
         self.question.setReadOnly(True)
         self.createqn.addWidget(self.question)
@@ -179,12 +154,8 @@ class AddSubWindow(QWidget):
         
     def regenerate(self):
         self.question.setPlainText(" ")
-        rnd_int1=randrange(10,100)
-        rnd_int2=randrange(10,100)
-        rnd_int3=randrange(10)
-        sub1 = rnd_int1-rnd_int3
-        sub2 = rnd_int2+rnd_int3
-        text = "John had " + str(sub1) + " apples, and Mary had "+str(sub2) +" apples. If Mary gave "+ str(rnd_int3) + " to John,how many will John and Mary have in the end? Ans: John had " + str(rnd_int1) + ". Mary had " + str(rnd_int2) + "."
+        text = qn2a()
+        text = str(text)
         self.question.setPlainText(text)
 
 class MulDivWindow(QWidget):
@@ -219,10 +190,8 @@ class MulDivWindow(QWidget):
     def _qn3a(self):
         self.qn3a = QTextEdit()
         self.qn3a.setFixedSize(300,40)
-        rnd_int1=randrange(1,10)
-        rnd_int2=randrange(1,10)
-        ans = rnd_int1*rnd_int2
-        text = "There are " + str(rnd_int1) + " groups of children. Each group has " + str(rnd_int2) + " children. How many children are there?     Ans: " + str(ans)
+        text = qn3a()
+        text = str(text)
         self.qn3a.setPlainText(text)
         self.qn3a.setReadOnly(True)
         self.createqn3a.addWidget(self.qn3a)
@@ -235,10 +204,8 @@ class MulDivWindow(QWidget):
 
     def regenerate3a(self):
         self.qn3a.setPlainText(" ")
-        rnd_int1=randrange(1,10)
-        rnd_int2=randrange(1,10)
-        ans = rnd_int1*rnd_int2
-        text = "There are " + str(rnd_int1) + " groups of children. Each group has " + str(rnd_int2) + " children. How many children are there?     Ans: " + str(ans)
+        text = qn3a()
+        text = str(text)
         self.qn3a.setPlainText(text)
     
     def _createqn3b(self):
@@ -250,10 +217,8 @@ class MulDivWindow(QWidget):
     def _qn3b(self):
         self.qn3b = QTextEdit()
         self.qn3b.setFixedSize(300,40)
-        rnd_int1=randrange(1,6)
-        rnd_int2=randrange(1,5)
-        ans = rnd_int1*rnd_int2
-        text = "Mrs Tan has " + str(ans) + " sweets. If she splits them into bags of  " + str(rnd_int2) + " sweets, how many bags are there?     Ans: " + str(rnd_int1)
+        text = qn3b()
+        text = str(text)
         self.qn3b.setPlainText(text)
         self.qn3b.setReadOnly(True)
         self.createqn3b.addWidget(self.qn3b)
@@ -266,10 +231,8 @@ class MulDivWindow(QWidget):
 
     def regenerate3b(self):
         self.qn3b.setPlainText(" ")
-        rnd_int1=randrange(1,6)
-        rnd_int2=randrange(1,5)
-        ans = rnd_int1*rnd_int2
-        text = "Mrs Tan has " + str(ans) + " sweets. If she splits them into bags of " + str(rnd_int2) + " sweets, how many bags are there?     Ans: " + str(rnd_int1)
+        text = qn3b()
+        text = str(text)
         self.qn3b.setPlainText(text)
 
 class MoneyWindow(QWidget):
@@ -296,52 +259,78 @@ class MoneyWindow(QWidget):
     def _createqn4a(self):
         self.createqn4a=QHBoxLayout()
         self._createquestionpartofqn4a()
-#        self._button4a()
+        self._button4a()
         self.generalLayout.addLayout(self.createqn4a)
     
     def _createquestionpartofqn4a(self):
         self.createquestionpartofqn4a=QVBoxLayout()
         self._qn4a()
+        self._qn4aimages()
         self.createqn4a.addLayout(self.createquestionpartofqn4a)
         
     def _qn4a(self):
         self.qn4a=QTextEdit()
         self.qn4a.setFixedSize(300,25)
-        onedollarint = randrange(1,5)
-        ans = onedollarint
-        text = "How much money is there below? Ans: $" + str(ans)
+        onedollarint, fiftycentint, twentycentint, tencentint, text = qn4a()
+        self.onedollarint = onedollarint
+        self.fiftycentint = fiftycentint
+        self.twentycentint = twentycentint
+        self.tencentint = tencentint
+        
         self.qn4a.setPlainText(text)
         self.qn4a.setReadOnly(True)
         self.createquestionpartofqn4a.addWidget(self.qn4a)
-        return onedollarint
     
-    def _qn4aimages(self,onedollarint):
+    def _qn4aimages(self):
         self.qn4aimages = QLabel()
-        onedollar_image = Image.open('onedollar.jpg')
+        self.qn4aimages.setFixedSize(300,300)
+        onedollar_image = Image.open('src/onedollar.jpg')
+        fiftycent_image = Image.open('src/fiftycent.jpg')
+        twentycent_image = Image.open('src/twentycent.jpg')
+        tencent_image = Image.open('src/tencent.jpg')
+        onedollarmosiac = coinmosiac(onedollar_image, self.onedollarint)
+        fiftycentmosiac = coinmosiac(fiftycent_image, self.fiftycentint)
+        twentycentmosiac = coinmosiac(twentycent_image, self.twentycentint)
+        tencentmosiac = coinmosiac(tencent_image, self.tencentint)
+        bigmosiac = big_mosiac(onedollarmosiac, fiftycentmosiac, twentycentmosiac, tencentmosiac)
+        im = bigmosiac.save('src/tempmosiac.jpg')
         
-        def get_concat_h_repeat(im, column):
-            dst = Image.new('RGB', (im.width * column, im.height))
-            for x in range(column):
-                dst.paste(im, (x * im.width, 0))
-            return dst
-
-        def get_concat_v_repeat(im, row):
-            dst = Image.new('RGB', (im.width, im.height * row))
-            for y in range(row):
-                dst.paste(im, (0, y * im.height))
-            return dst
-
-        def get_concat_tile_repeat(im, row, column):
-            dst_h = get_concat_h_repeat(im, column)
-            return get_concat_v_repeat(dst_h, row)
-
-        im_s = onedollar_image.resize((onedollar_image.width // 2, onedollar_image.height // 2))
-        n_image = get_concat_tile_repeat(im_s, 1, int(onedollarint))
-        onedollar_pixmap = QPixmap(n_image)
-        self.qn4aimages.setPixmap(onedollar_pixmap)
+        pixmap = QPixmap('src/tempmosiac.jpg')
+        self.qn4aimages.setPixmap(pixmap)
+        self.qn4aimages.setScaledContents(True)
         self.createquestionpartofqn4a.addWidget(self.qn4aimages)
-        
+    
+    def _button4a(self):
+        self.button4a = QPushButton("Re-generate")
+        self.button4a.clicked.connect(self.regenerate4a)
+        self.button4a.setFixedSize(80, 30)
+        self.createqn4a.addWidget(self.button4a)
 
+    def regenerate4a(self):
+        self.qn4a.setPlainText(" ")
+        onedollarint, fiftycentint, twentycentint, tencentint, text = qn4a()
+        self.onedollarint = onedollarint
+        self.fiftycentint = fiftycentint
+        self.twentycentint = twentycentint
+        self.tencentint = tencentint
+        text = str(text)
+        self.qn4a.setPlainText(text)
+        
+        onedollar_image = Image.open('src/onedollar.jpg')
+        fiftycent_image = Image.open('src/fiftycent.jpg')
+        twentycent_image = Image.open('src/twentycent.jpg')
+        tencent_image = Image.open('src/tencent.jpg')
+        onedollarmosiac = coinmosiac(onedollar_image, self.onedollarint)
+        fiftycentmosiac = coinmosiac(fiftycent_image, self.fiftycentint)
+        twentycentmosiac = coinmosiac(twentycent_image, self.twentycentint)
+        tencentmosiac = coinmosiac(tencent_image, self.tencentint)
+        bigmosiac = big_mosiac(onedollarmosiac, fiftycentmosiac, twentycentmosiac, tencentmosiac)
+        im = bigmosiac.save('src/tempmosiac.jpg')
+        
+        pixmap = QPixmap('src/tempmosiac.jpg')
+        self.qn4aimages.setPixmap(pixmap)
+        self.qn4aimages.setScaledContents(True)
+        
 class MathQnBankWindow(QWidget):
 
    def __init__(self):
