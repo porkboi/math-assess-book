@@ -11,3 +11,14 @@ Utilises Pillows to make image mosiacs
 
 <h3> Question Generation </h3>
 Function Database population in the event of future extensions to Django
+
+<h2> Question Completion </h2>
+As of now, the following are operational:
+
+Primary 1 Window (DONE)
+Unit 1 (Functional)
+Unit 2 (Functional)
+Unit 3 (Functional)
+Unit 4 (Functional)
+
+Primary 2 Window (DONE)
