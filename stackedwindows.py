@@ -22,8 +22,9 @@ from PyQt5.QtWidgets import (QApplication,
     QFormLayout,
     QLineEdit,
     QListWidget,
+    QScrollArea,
     )
-from PyQt5.QtGui import QPixmap
+from PyQt5.QtGui import (QPixmap,QWindow)
 #from functools import partial
 from random import randrange
 from PIL import Image
@@ -48,6 +49,8 @@ class Arith100Window(QWidget):
         self._createBanner()
         self._createsimpleqn()
         self._createsimpleqn2()
+        self._createqn1c()
+        self._createqn1d()
 
     def _createBanner(self):
         self.banner = QLabel()
@@ -109,6 +112,60 @@ class Arith100Window(QWidget):
         text = qn1b()
         text = str(text)
         self.simpleqn2.setPlainText(text)
+        
+    def _createqn1c(self):
+        self.createqn1c=QHBoxLayout()
+        self._qn1c()
+        self._button1c()
+        self.generalLayout.addLayout(self.createqn1c)
+    
+    def _qn1c(self):
+        self.qn1c = QTextEdit()
+        self.qn1c.setFixedSize(300,40)
+        text = qn1c()
+        text = str(text)
+        self.qn1c.setPlainText(text)
+        self.qn1c.setReadOnly(True)
+        self.createqn1c.addWidget(self.qn1c)
+    
+    def _button1c(self):
+        self.button1c = QPushButton("Re-generate")
+        self.button1c.clicked.connect(self.regenerate1c)
+        self.button1c.setFixedSize(80, 30)
+        self.createqn1c.addWidget(self.button1c)
+
+    def regenerate1c(self):
+        self.qn1c.setPlainText(" ")
+        text = qn1c()
+        text = str(text)
+        self.qn1c.setPlainText(text)
+        
+    def _createqn1d(self):
+        self.createqn1d=QHBoxLayout()
+        self._qn1d()
+        self._button1d()
+        self.generalLayout.addLayout(self.createqn1d)
+    
+    def _qn1d(self):
+        self.qn1d = QTextEdit()
+        self.qn1d.setFixedSize(300,78)
+        text = qn1d()
+        text = str(text)
+        self.qn1d.setPlainText(text)
+        self.qn1d.setReadOnly(True)
+        self.createqn1d.addWidget(self.qn1d)
+    
+    def _button1d(self):
+        self.button1d = QPushButton("Re-generate")
+        self.button1d.clicked.connect(self.regenerate1d)
+        self.button1d.setFixedSize(80, 30)
+        self.createqn1d.addWidget(self.button1d)
+
+    def regenerate1d(self):
+        self.qn1d.setPlainText(" ")
+        text = qn1d()
+        text = str(text)
+        self.qn1d.setPlainText(text)
 
 class AddSubWindow(QWidget):
     '''
@@ -139,7 +196,7 @@ class AddSubWindow(QWidget):
         
     def _createQuestion(self):
         self.question = QTextEdit()
-        self.question.setFixedSize(300,50)
+        self.question.setFixedSize(300,65)
         text = qn2a()
         text = str(text)
         self.question.setPlainText(text)
@@ -189,7 +246,7 @@ class MulDivWindow(QWidget):
     
     def _qn3a(self):
         self.qn3a = QTextEdit()
-        self.qn3a.setFixedSize(300,40)
+        self.qn3a.setFixedSize(300,50)
         text = qn3a()
         text = str(text)
         self.qn3a.setPlainText(text)
@@ -216,7 +273,7 @@ class MulDivWindow(QWidget):
     
     def _qn3b(self):
         self.qn3b = QTextEdit()
-        self.qn3b.setFixedSize(300,40)
+        self.qn3b.setFixedSize(300,50)
         text = qn3b()
         text = str(text)
         self.qn3b.setPlainText(text)
@@ -240,13 +297,23 @@ class MoneyWindow(QWidget):
     New Window, float free
     '''
     def __init__(self):
-        super().__init__()
+        super().__init__()     
         self.setWindowTitle("Primary 1 / Money")
-        self.setFixedSize(WINDOW_SIZE, WINDOW_SIZE)
+        self.setFixedSize(500, 500)
         self.generalLayout=QVBoxLayout()
+        self.scroll = QScrollArea(self)
+        self.scroll.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
+        self.scroll.setWidgetResizable(True)
+        
         centralWidget = QWidget(self)
         centralWidget.setLayout(self.generalLayout)
+        self.scroll.setWidget(centralWidget)
+        
+        self.outer = QVBoxLayout()
+        self.setLayout(self.outer)
+        
         self.moneybanner()
+        self._createqn4b()
         self._createqn4a()
     
     def moneybanner(self):
@@ -254,7 +321,73 @@ class MoneyWindow(QWidget):
         self.banner.setText("<h3>Primary 1/ Money<h3>")
         self.banner.setAlignment(Qt.AlignCenter)
         self.banner.setFixedHeight(BANNER_HEIGHT)
-        self.generalLayout.addWidget(self.banner)
+        self.banner.setFixedWidth(500)
+        self.outer.addWidget(self.banner)
+        self.outer.addWidget(self.scroll)
+    
+    def _createqn4b(self):
+        self.createqn4b=QHBoxLayout()
+        self._createquestionpartofqn4b()
+        self._button4b()
+        self.generalLayout.addLayout(self.createqn4b)
+    
+    def _createquestionpartofqn4b(self):
+        self.createquestionpartofqn4b=QVBoxLayout()
+        self._qn4b()
+        self._qn4bimages()
+        self.createqn4b.addLayout(self.createquestionpartofqn4b)
+        
+    def _qn4b(self):
+        self.qn4b=QTextEdit()
+        self.qn4b.setFixedSize(350,25)
+        twentycentint, tencentint, text = qn4b()
+        self.twentycentintb = twentycentint
+        self.tencentintb = tencentint
+        
+        self.qn4b.setPlainText(text)
+        self.qn4b.setReadOnly(True)
+        self.createquestionpartofqn4b.addWidget(self.qn4b)
+    
+    def _qn4bimages(self):
+        self.qn4bimages = QLabel()
+        self.qn4bimages.setFixedSize(350,175)
+        twentycent_image = Image.open('src/twentycent.jpg')
+        tencent_image = Image.open('src/tencent.jpg')
+        twentycentmosiac = coinmosiac(twentycent_image, self.twentycentintb)
+        tencentmosiac = coinmosiac(tencent_image, self.tencentintb)
+        bigmosiac = big_mosiac(twentycentmosiac, tencentmosiac)
+        im = bigmosiac.save('src/tempmosiacb.jpg')
+        
+        pixmap = QPixmap('src/tempmosiacb.jpg')
+        self.qn4bimages.setPixmap(pixmap)
+        self.qn4bimages.setScaledContents(True)
+        self.createquestionpartofqn4b.addWidget(self.qn4bimages)
+    
+    def _button4b(self):
+        self.button4b = QPushButton("Re-generate")
+        self.button4b.clicked.connect(self.regenerate4b)
+        self.button4b.setFixedSize(80, 30)
+        self.createqn4b.addWidget(self.button4b)
+
+    def regenerate4b(self):
+        self.qn4b.setPlainText(" ")
+        twentycentint, tencentint, text = qn4b()
+        self.twentycentintb = twentycentint
+        self.tencentintb = tencentint
+        text = str(text)
+        self.qn4b.setPlainText(text)
+        
+        twentycent_image = Image.open('src/twentycent.jpg')
+        tencent_image = Image.open('src/tencent.jpg')
+
+        twentycentmosiac = coinmosiac(twentycent_image, self.twentycentintb)
+        tencentmosiac = coinmosiac(tencent_image, self.tencentintb)
+        bigmosiac = big_mosiac(twentycentmosiac, tencentmosiac)
+        im = bigmosiac.save('src/tempmosiacb.jpg')
+        
+        pixmap = QPixmap('src/tempmosiacb.jpg')
+        self.qn4bimages.setPixmap(pixmap)
+        self.qn4bimages.setScaledContents(True)
     
     def _createqn4a(self):
         self.createqn4a=QHBoxLayout()
@@ -270,7 +403,7 @@ class MoneyWindow(QWidget):
         
     def _qn4a(self):
         self.qn4a=QTextEdit()
-        self.qn4a.setFixedSize(300,25)
+        self.qn4a.setFixedSize(350,25)
         onedollarint, fiftycentint, twentycentint, tencentint, text = qn4a()
         self.onedollarint = onedollarint
         self.fiftycentint = fiftycentint
@@ -283,7 +416,7 @@ class MoneyWindow(QWidget):
     
     def _qn4aimages(self):
         self.qn4aimages = QLabel()
-        self.qn4aimages.setFixedSize(300,300)
+        self.qn4aimages.setFixedSize(350,350)
         onedollar_image = Image.open('src/onedollar.jpg')
         fiftycent_image = Image.open('src/fiftycent.jpg')
         twentycent_image = Image.open('src/twentycent.jpg')

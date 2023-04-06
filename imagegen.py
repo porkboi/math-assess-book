@@ -47,7 +47,10 @@ def coinmosiac(coin_image, coinint, vertical=False):
     
 def big_mosiac(*images, vertical=False):
     width, height = images[0].width, images[0].height
-    tiled_size = width*2, height*2
+    if len(images)==4:
+        tiled_size = width*2, height*2
+    else:
+        tiled_size = width*2, height*1
     tiled_img = Image.new(images[0].mode, tiled_size, color=(255,255,255))
     row , col = 0,0
     for image in images:
