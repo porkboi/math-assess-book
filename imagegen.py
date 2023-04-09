@@ -7,6 +7,11 @@ Created on Mon Apr  3 17:28:08 2023
 
 from PIL import Image
 
+clockface = Image.open("src/clockface.png")
+minutehand = Image.open("src/minutehand.png")
+minutehand = minutehand.convert("RGBA")
+hourhand = Image.open("src/hourhand.png")
+hourhand = hourhand.convert("RGBA")
 
 def coinmosiac(coin_image, coinint, vertical=False):
     top = coinint // 3
@@ -62,3 +67,15 @@ def big_mosiac(*images, vertical=False):
         else:
             row += width
     return tiled_img
+
+def clockgen(hour, minute):
+    minutehand_angle = minute/60*360
+    hourhand_angle = hour/12*360 + minute/60*30
+    rotated_hourhand = hourhand.rotate(-hourhand_angle)
+    rotated_minutehand = minutehand.rotate(-minutehand_angle)
+    width, height = clockface.width, clockface.height
+    clock_img = Image.new(clockface.mode, (width,height), color=(255,255,255))
+    clock_img.paste(clockface, (0,0))
+    clock_img.paste(rotated_hourhand, (0,0), rotated_hourhand)
+    clock_img.paste(rotated_minutehand, (0,0), rotated_minutehand)
+    return clock_img

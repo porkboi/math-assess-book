@@ -18,7 +18,6 @@ def qn1a():
 def qn1b():
     rnd_int1=randrange(1,100)
     rnd_int2=randrange(1,100)
-    
     if (rnd_int1 > rnd_int2):
         ans = rnd_int1-rnd_int2
         text = str(rnd_int1) + " - " + str(rnd_int2) + "= ?    Ans: " + str(ans)
@@ -50,13 +49,13 @@ def qn1d():
     a = int(lst[0])
     b = int(lst[1])
     
-    if a % b == 0 and a != b:
+    if b != 0 and a % b == 0 and a != b:
         c = a/b
         c = int(c)
         d = randrange(1,a+1)
         e = a - d
         text = "Ahmad is thinking of a 2 digit number.\nThe number in the tens place is " + str(e) + " more than " + str(d) + ".\nThe number in the ones place is the digit in the tens place divided by "+ str(c) +".\nWhat is the number?       Ans: " + str(rnd_int1)
-    elif b % a == 0 and a != b:
+    elif b != 0 and b % a == 0 and a != b:
         c = b/a
         c = int(c)
         d = randrange(1,a+1)
@@ -119,3 +118,50 @@ def qn4b():
     ans = round(ans,3)
     text = "How much money is there below?     Ans: $" + str(ans)
     return twentycentint, tencentint, text
+
+def qn4c():
+    rnd_int1 = randrange(1,99)
+    rnd_int2 = randrange(2,100)
+    if (rnd_int1 > rnd_int2):
+        ans = rnd_int1-rnd_int2
+        text = "Charlie bought a bird. \nHe gave the cashier $" + str(rnd_int1) + ".\nHe got back $" + str(rnd_int2) + ".\nHow much was the bird?    Ans: $" + str(ans)
+    else:
+        ans = rnd_int2-rnd_int1
+        text = "Charlie bought a bird. \nHe gave the cashier $" + str(rnd_int2) + ".\nHe got back $" + str(rnd_int1) + ".\nHow much was the bird?    Ans: $" + str(ans)
+    return text
+
+def printWords(h, m): 
+
+    nums = ["zero", "one", "two", "three", "four", 
+        "five", "six", "seven", "eight", "nine", 
+        "ten", "eleven", "twelve", "thirteen", 
+        "fourteen", "fifteen", "sixteen",  
+        "seventeen", "eighteen", "nineteen",  
+        "twenty", "twenty one", "twenty two",  
+        "twenty three", "twenty four",  
+        "twenty five", "twenty six", "twenty seven", 
+        "twenty eight", "twenty nine"]
+    
+    if (m == 0): 
+        ans = f"{nums[h]} o' clock"
+    elif (m == 1): 
+        ans = f"one minute past {nums[h]}"
+    elif (m == 59): 
+        ans = f"one minute to {nums[h+1]}" 
+    elif (m == 15): 
+        ans = f"quarter past {nums[h]}"
+    elif (m == 30): 
+        ans = f"half past {nums[h]}"
+    elif (m == 45): 
+        ans = f"quarter to {nums[h+1]}"
+    elif (m <= 30): 
+        ans = f"{nums[m]} minutes past {nums[h]}"
+    elif (m > 30): 
+        ans = f"{nums[60-m]} minutes to {nums[h+1]}" 
+    return ans
+
+def qn5a():
+    rnd_int1 = randrange(0,13)
+    rnd_int2 = randrange(-1,60)
+    ans = "What is the time shown below?\nAns: " + str(printWords(rnd_int1, rnd_int2))
+    return rnd_int1, rnd_int2, ans

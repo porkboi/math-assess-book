@@ -315,6 +315,7 @@ class MoneyWindow(QWidget):
         self.moneybanner()
         self._createqn4b()
         self._createqn4a()
+        self._createqn4c()
     
     def moneybanner(self):
         self.banner = QLabel()
@@ -463,7 +464,118 @@ class MoneyWindow(QWidget):
         pixmap = QPixmap('src/tempmosiac.jpg')
         self.qn4aimages.setPixmap(pixmap)
         self.qn4aimages.setScaledContents(True)
+
+    def _createqn4c(self):
+        self.createqn4c=QHBoxLayout()
+        self._qn4c()
+        self._button4c()
+        self.generalLayout.addLayout(self.createqn4c)
+    
+    def _qn4c(self):
+        self.qn4c = QTextEdit()
+        self.qn4c.setFixedSize(300,78)
+        text = qn4c()
+        text = str(text)
+        self.qn4c.setPlainText(text)
+        self.qn4c.setReadOnly(True)
+        self.createqn4c.addWidget(self.qn4c)
+    
+    def _button4c(self):
+        self.button4c = QPushButton("Re-generate")
+        self.button4c.clicked.connect(self.regenerate4c)
+        self.button4c.setFixedSize(80, 30)
+        self.createqn4c.addWidget(self.button4c)
+
+    def regenerate4c(self):
+        self.qn4c.setPlainText(" ")
+        text = qn4c()
+        text = str(text)
+        self.qn4c.setPlainText(text)
         
+class TimeWindow(QWidget):
+    '''
+    New Window, float free
+    '''
+    def __init__(self):
+        super().__init__()     
+        self.setWindowTitle("Primary 1 / Time")
+        self.setFixedSize(500, 500)
+        self.generalLayout=QVBoxLayout()
+        self.scroll = QScrollArea(self)
+        self.scroll.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
+        self.scroll.setWidgetResizable(True)
+        
+        centralWidget = QWidget(self)
+        centralWidget.setLayout(self.generalLayout)
+        self.scroll.setWidget(centralWidget)
+        
+        self.outer = QVBoxLayout()
+        self.setLayout(self.outer)
+        
+        self.timebanner()
+        self._createqn5a()
+    
+    def timebanner(self):
+        self.banner = QLabel()
+        self.banner.setText("<h3>Primary 1/ Time<h3>")
+        self.banner.setAlignment(Qt.AlignCenter)
+        self.banner.setFixedHeight(BANNER_HEIGHT)
+        self.banner.setFixedWidth(500)
+        self.outer.addWidget(self.banner)
+        self.outer.addWidget(self.scroll)
+    
+    def _createqn5a(self):
+        self.createqn5a=QHBoxLayout()
+        self._createquestionpartofqn5a()
+        self._button5a()
+        self.generalLayout.addLayout(self.createqn5a)
+    
+    def _createquestionpartofqn5a(self):
+        self.createquestionpartofqn5a=QVBoxLayout()
+        self._qn5a()
+        self._qn5aimages()
+        self.createqn5a.addLayout(self.createquestionpartofqn5a)
+        
+    def _qn5a(self):
+        self.qn5a=QTextEdit()
+        self.qn5a.setFixedSize(350,38)
+        hour, minute, text = qn5a()
+        self.hour = hour
+        self.minute = minute
+        
+        self.qn5a.setPlainText(text)
+        self.qn5a.setReadOnly(True)
+        self.createquestionpartofqn5a.addWidget(self.qn5a)
+    
+    def _qn5aimages(self):
+        self.qn5aimages = QLabel()
+        self.qn5aimages.setFixedSize(350,350)
+        clockqn = clockgen(self.hour, self.minute)
+        im = clockqn.save('src/clockhandsqn.png')
+        
+        pixmap = QPixmap('src/clockhandsqn.png')
+        self.qn5aimages.setPixmap(pixmap)
+        self.qn5aimages.setScaledContents(True)
+        self.createquestionpartofqn5a.addWidget(self.qn5aimages)
+    
+    def _button5a(self):
+        self.button5a = QPushButton("Re-generate")
+        self.button5a.clicked.connect(self.regenerate5a)
+        self.button5a.setFixedSize(80, 30)
+        self.createqn5a.addWidget(self.button5a)
+
+    def regenerate5a(self):
+        self.qn5a.setPlainText(" ")
+        hour, minute, text = qn5a()
+        
+        self.qn5a.setPlainText(text)
+        clockqn = clockgen(hour, minute)
+        im = clockqn.save('src/clockhandsqn.png')
+        
+        pixmap = QPixmap('src/clockhandsqn.png')
+        self.qn5aimages.setPixmap(pixmap)
+        self.qn5aimages.setScaledContents(True)
+
 class MathQnBankWindow(QWidget):
 
    def __init__(self):
@@ -541,6 +653,10 @@ class MathQnBankWindow(QWidget):
    def Money(self,checked):
        self.w = MoneyWindow()
        self.w.show()
+       
+   def Time(self,checked):
+       self.w = TimeWindow()
+       self.w.show()
 
    def primary1UI(self):
       layout = QVBoxLayout()
@@ -573,11 +689,12 @@ class MathQnBankWindow(QWidget):
       buttonsLayout.addWidget(btn1d, 1, 0)
       btn1d.clicked.connect(self.Money)
       
-      btn1e = QPushButton("Length")
+      btn1e = QPushButton("Time")
       btn1e.setFixedSize(150,BUTTON_SIZE)
       buttonsLayout.addWidget(btn1e, 1, 1)
+      btn1e.clicked.connect(self.Time)
  
-      btn1f = QPushButton("Time")
+      btn1f = QPushButton("Length")
       btn1f.setFixedSize(150,BUTTON_SIZE)
       buttonsLayout.addWidget(btn1f, 1, 2)
       
@@ -585,13 +702,9 @@ class MathQnBankWindow(QWidget):
       btn1g.setFixedSize(150,BUTTON_SIZE)
       buttonsLayout.addWidget(btn1g, 2, 0)
       
-      btn1h = QPushButton("Length")
+      btn1h = QPushButton("Exam Revision")
       btn1h.setFixedSize(150,BUTTON_SIZE)
       buttonsLayout.addWidget(btn1h, 2, 1)
-      
-      btn1i = QPushButton("Exam Revision")
-      btn1i.setFixedSize(150,BUTTON_SIZE)
-      buttonsLayout.addWidget(btn1i, 2, 2)
    
       layout.addWidget(self.bannerpri1)
       layout.addLayout(buttonsLayout)
