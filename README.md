@@ -1,5 +1,7 @@
 <h1> Mathematics Assessment Book for Pri School </h1>
-Aims to provide unlimited automatically generated questions for Primary School Students.
+The Singapore-oriented Primary School Math Assessment Book aims to provide unlimited automatically generated questions for Primary School Students.
+
+You can [see the repositiory](https://github.com/porkboi/math-assess-book), and start using it for free today.
 
 <h2> Pipeline </h2>
 <h3> Main File </h3>
