@@ -7,13 +7,15 @@ You can [see the repositiory](https://github.com/porkboi/math-assess-book), and 
 ![Thumbnail of Landing Page](img1.png)
 
 <h2> Features </h2>
-1. For teachers and students alike!
+<b>1. For teachers and students alike!</b>
 
-   Automating Homework generation and grinding for exams!
 
-2. Unlimited questions!
+Automating Homework generation and grinding for exams!
 
-   Generating questions basedon reverse-engineered methods allow for unlimited questions which will always be solvable to be generated.
+<b>2. Unlimited questions!</b>
+
+
+Generating questions basedon reverse-engineered methods allow for unlimited questions which will always be solvable to be generated.
 
 ![Thumbnail of Generation Page](img2.png)
 
@@ -34,9 +36,13 @@ As of now, the following are operational:
 <h3> Primary 1 Window (DONE) </h3>
 
 Unit 1/ Numbers to 100 (Functional)
+
 Unit 2/ Addition and Substraction (Functional)
+
 Unit 3/ Multiplication and Division (Functional)
+
 Unit 4/ Money (Functional)
+
 Unit 5/ Time (Functional)
 
 <h3> Primary 2 Window (DONE) </h3>
