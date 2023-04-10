@@ -15,7 +15,7 @@ Automating Homework generation and grinding for exams!
 <b>2. Unlimited questions!</b>
 
 
-Generating questions basedon reverse-engineered methods allow for unlimited questions which will always be solvable to be generated.
+Generating questions based on reverse-engineered methods allow for unlimited questions which will always be solvable to be generated.
 
 ![Thumbnail of Generation Page](img2.png)
 
