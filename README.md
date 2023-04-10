@@ -46,3 +46,17 @@ Unit 4/ Money (Functional)
 Unit 5/ Time (Functional)
 
 <h3> Primary 2 Window (DONE) </h3>
+
+<h2> Future Developments </h2>
+
+- Fields to enter answer
+
+- Marking for Correct/Wrong
+
+- Database populated locally
+
+- Locally analyse weakest questions/topics
+
+- Utilising K-NN classifiers (unsupervised) to identify questions which the user may have gotten right on a fluke
+
+- Setting "Error papers" where questions that were wrong are set in 1 seating
