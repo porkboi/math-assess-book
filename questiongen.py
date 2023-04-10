@@ -63,12 +63,12 @@ def qn1d():
         text = "Ahmad is thinking of a 2 digit number.\nThe number in the tens place is " + str(e) + " more than " + str(d) + ".\nThe number in the ones place is the digit in the tens place multiplied by "+ str(c) +".\nWhat is the number?       Ans: " + str(rnd_int1)
     elif a > b:
         c = a - b
-        d = randrange(1,a+1)
+        d = randrange(0,b+1)
         e = b - d
         text = "Ahmad is thinking of a 2 digit number.\nThe number in the ones place is " + str(e) + " more than " + str(d) + ".\nThe number in the tens place is "+ str(c) +" more than the digit in the ones place.\nWhat is the number?       Ans: " + str(rnd_int1)
     elif b > a:
         c = b - a
-        d = randrange(1,a+1)
+        d = randrange(0,b+1)
         e = b - d
         text = "Ahmad is thinking of a 2 digit number.\nThe number in the ones place is " + str(e) + " more than " + str(d) + ".\nThe number in the tens place is "+ str(c) +" less than the digit in the ones place.\nWhat is the number?       Ans: " + str(rnd_int1)
     elif a == b:
@@ -85,6 +85,13 @@ def qn2a():
     sub1 = rnd_int1-rnd_int3
     sub2 = rnd_int2+rnd_int3
     text = "John had " + str(sub1) + " apples, and Mary had "+str(sub2) +" apples.\nIf Mary gave "+ str(rnd_int3) + " to John,\nhow many will John and Mary have in the end? \nAns: John had " + str(rnd_int1) + ". Mary had " + str(rnd_int2) + "."
+    return text
+
+def qn2b():
+    rnd_int1=randrange(0,31)
+    rnd_int2=randrange(0,71)
+    sub1 = rnd_int2+rnd_int1
+    text = f"Charlie obtained {rnd_int1} birds.\nIf he had {rnd_int2} birds at first,\nhow many birds did he have in the end?     Ans: {sub1} birds"
     return text
 
 def qn3a():
@@ -128,6 +135,13 @@ def qn4c():
     else:
         ans = rnd_int2-rnd_int1
         text = "Charlie bought a bird. \nHe gave the cashier $" + str(rnd_int2) + ".\nHe got back $" + str(rnd_int1) + ".\nHow much was the bird?    Ans: $" + str(ans)
+    return text
+
+def qn4d():
+    rnd_int1=randrange(0,31)
+    rnd_int2=randrange(0,71)
+    sub1 = rnd_int2+rnd_int1
+    text = f"Charlie spent ${rnd_int1} on a bird.\nIf he received ${rnd_int2} as change,\nhow much money did he have at first?     Ans: ${sub1}"
     return text
 
 def printWords(h, m): 

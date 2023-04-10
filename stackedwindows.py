@@ -180,6 +180,7 @@ class AddSubWindow(QWidget):
         centralWidget.setLayout(self.generalLayout)
         self._createBanner()
         self._createqn()
+        self._createqn2b()
 
     def _createBanner(self):
         self.banner = QLabel()
@@ -214,6 +215,33 @@ class AddSubWindow(QWidget):
         text = qn2a()
         text = str(text)
         self.question.setPlainText(text)
+
+    def _createqn2b(self):
+        self.createqn2b=QHBoxLayout()
+        self._qn2b()
+        self._button2b()
+        self.generalLayout.addLayout(self.createqn2b)
+    
+    def _qn2b(self):
+        self.qn2b = QTextEdit()
+        self.qn2b.setFixedSize(300,50)
+        text = qn2b()
+        text = str(text)
+        self.qn2b.setPlainText(text)
+        self.qn2b.setReadOnly(True)
+        self.createqn2b.addWidget(self.qn2b)
+    
+    def _button2b(self):
+        self.button2b = QPushButton("Re-generate")
+        self.button2b.clicked.connect(self.regenerate2b)
+        self.button2b.setFixedSize(80, 30)
+        self.createqn2b.addWidget(self.button2b)
+
+    def regenerate2b(self):
+        self.qn2b.setPlainText(" ")
+        text = qn2b()
+        text = str(text)
+        self.qn2b.setPlainText(text)
 
 class MulDivWindow(QWidget):
     '''
@@ -316,6 +344,7 @@ class MoneyWindow(QWidget):
         self._createqn4b()
         self._createqn4a()
         self._createqn4c()
+        self._createqn4d()
     
     def moneybanner(self):
         self.banner = QLabel()
@@ -473,7 +502,7 @@ class MoneyWindow(QWidget):
     
     def _qn4c(self):
         self.qn4c = QTextEdit()
-        self.qn4c.setFixedSize(300,78)
+        self.qn4c.setFixedSize(350,65)
         text = qn4c()
         text = str(text)
         self.qn4c.setPlainText(text)
@@ -491,6 +520,33 @@ class MoneyWindow(QWidget):
         text = qn4c()
         text = str(text)
         self.qn4c.setPlainText(text)
+
+    def _createqn4d(self):
+        self.createqn4d=QHBoxLayout()
+        self._qn4d()
+        self._button4d()
+        self.generalLayout.addLayout(self.createqn4d)
+    
+    def _qn4d(self):
+        self.qn4d = QTextEdit()
+        self.qn4d.setFixedSize(350,65)
+        text = qn4d()
+        text = str(text)
+        self.qn4d.setPlainText(text)
+        self.qn4d.setReadOnly(True)
+        self.createqn4d.addWidget(self.qn4d)
+    
+    def _button4d(self):
+        self.button4d = QPushButton("Re-generate")
+        self.button4d.clicked.connect(self.regenerate4d)
+        self.button4d.setFixedSize(80, 30)
+        self.createqn4d.addWidget(self.button4d)
+
+    def regenerate4d(self):
+        self.qn4d.setPlainText(" ")
+        text = qn4d()
+        text = str(text)
+        self.qn4d.setPlainText(text)
         
 class TimeWindow(QWidget):
     '''
